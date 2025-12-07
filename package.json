@@ -1,0 +1,42 @@
+{
+  "name": "train-lle",
+  "version": "0.0.1",
+  "description": "Local Learning Engine - A local-first ML training & inference engine for Node.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "train-lle": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["machine-learning", "neural-networks", "typescript", "node", "local-ml"],
+  "author": "Ramkrishna",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "pino": "^8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/students-dev/train-lle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/students-dev/train-lle/issues"
+  },
+  "homepage": "https://github.com/students-dev/train-lle#readme"
+}

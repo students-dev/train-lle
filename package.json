@@ -1,5 +1,5 @@
 {
-  "name": "train-lle",
+  "name": "@students-dev/train-lle",
   "version": "0.1.0",
   "version": "0.1.0",
   "description": "Local Learning Engine - A local-first ML training & inference engine for Node.js",

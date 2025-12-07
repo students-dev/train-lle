@@ -1,6 +1,7 @@
 {
   "name": "train-lle",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "version": "0.1.0",
   "description": "Local Learning Engine - A local-first ML training & inference engine for Node.js",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

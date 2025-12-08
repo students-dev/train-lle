@@ -3,7 +3,27 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.html).
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0/).
+
+## [1.0.0] - 2025-12-08
+
+### Added
+- **Major release**: Full production-ready LOCAL LEARNING ENGINE ecosystem
+- **Cross-language support**: TypeScript (ESM), JavaScript (CommonJS), Python (PyPI) packages
+- **Cross-language compatibility**: Identical model behavior, training results, and .lle v1.1 format across all runtimes
+- **Enhanced .lle format v1.1**: ZIP container with metadata.json, graph.json, weights_index.json, weights.bin
+- **Additional optimizers**: RMSProp
+- **Additional loss functions**: MAE
+- **Additional activations**: Tanh, Softmax
+- **Mono-repo structure**: Packages in packages/ directory with shared CI/CD
+- **Cross-language testing**: Scripts to verify model compatibility between JS and Python
+- **Updated CLI**: Consistent commands across runtimes
+- **Comprehensive documentation**: SPEC_LLE_v1.1.md, updated READMEs, examples
+
+### Changed
+- Restructured repo into mono-repo with packages/train-lle/, train-lle.js/, train-lle-py/
+- Updated build systems for all packages
+- Enhanced CI to test all runtimes and cross-language compatibility
 
 ## [0.1.0] - 2025-12-07
 

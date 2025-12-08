@@ -1,24 +1,36 @@
-# train-lle
+# Train-LLE Ecosystem v1.0.0
 
-**Local Learning Engine** - A local-first ML training & inference engine for Node.js. Train neural networks on your machine without cloud dependencies.
+**Local Learning Engine** - A full production-ready LOCAL LEARNING ENGINE ecosystem with TypeScript, JavaScript, and Python packages. Train neural networks locally without cloud dependencies.
 
 ## Features
 
 - **Local-first**: No internet required for training or inference
-- **TypeScript**: Fully typed for better developer experience
+- **Cross-language**: TypeScript, JavaScript, Python with identical behavior
 - **Simple API**: Easy to use for tabular, image, and text data
 - **Models**: MLP, CNN, RNN implementations
-- **Optimizers**: SGD and Adam
-- **Loss functions**: MSE, CrossEntropy
+- **Optimizers**: SGD, Adam, RMSProp
+- **Loss functions**: MSE, MAE, CrossEntropy
+- **Activations**: ReLU, Sigmoid, Tanh, Softmax
 - **CLI**: Command-line interface for training workflows
-- **Custom format**: Save/load models in `.lle` format
+- **Cross-language format**: Save/load models in `.lle` v1.1 format
 
 ## Installation
 
+### TypeScript (ESM)
 ```bash
 npm install train-lle
 # or
 pnpm add train-lle
+```
+
+### JavaScript (CommonJS)
+```bash
+npm install train-lle.js
+```
+
+### Python
+```bash
+pip install train-lle
 ```
 
 ## Quickstart

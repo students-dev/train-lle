@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import * as pdfParse from 'pdf-parse';
+import pdfParse from 'pdf-parse';
 import * as mammoth from 'mammoth';
 import * as cheerio from 'cheerio';
 import { createWorker } from 'tesseract.js';

@@ -1,0 +1,42 @@
+{
+  "name": "train-lle",
+  "version": "1.0.0",
+  "description": "Local Learning Engine - TypeScript ESM package",
+  "type": "module",
+  "main": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js"
+    }
+  },
+  "bin": {
+    "train-lle": "./dist/esm/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["machine-learning", "neural-networks", "typescript", "esm", "local-ml"],
+  "author": "Ramkrishna",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@types/jszip": "^3.4.1",
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "pino": "^8.0.0",
+    "jszip": "^3.10.1"
+  }
+}

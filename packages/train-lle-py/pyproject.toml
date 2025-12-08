@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "train-lle"
+version = "1.0.0"
+description = "Local Learning Engine - Python package"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.8"
+dependencies = [
+    "numpy",
+]
+authors = [
+    {name = "Ramkrishna"},
+]
+
+[project.scripts]
+train-lle = "train_lle.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"

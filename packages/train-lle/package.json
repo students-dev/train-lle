@@ -1,5 +1,5 @@
 {
-   "name": "train-lle",
+   "name": "@students-dev/train-lle",
    "version": "1.1.1",
   "description": "Local Learning Engine - TypeScript ESM package",
   "type": "module",

@@ -20,14 +20,14 @@
 
 ### TypeScript (ESM)
 ```bash
-npm install train-lle
+npm install @students-dev/train-lle
 # or
-pnpm add train-lle
+pnpm add @students-dev/train-lle
 ```
 
 ### JavaScript (CommonJS)
 ```bash
-npm install train-lle.js
+npm install @students-dev/train-lle.js
 ```
 
 ### Python
@@ -40,7 +40,7 @@ pip install train-lle
 ### Programmatic Usage
 
 ```ts
-import { Model, MLPConfig, Trainer, Dataset } from "train-lle";
+import { Model, MLPConfig, Trainer, Dataset } from "@students-dev/train-lle";
 
 const model = new Model(new MLPConfig({ input: 4, layers: [8, 8], output: 1 }));
 const trainer = new Trainer({ optimizer: "adam", lr: 0.01, epochs: 50 });

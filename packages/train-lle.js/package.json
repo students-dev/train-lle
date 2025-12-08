@@ -1,5 +1,5 @@
 {
-   "name": "train-lle.js",
+   "name": "@students-dev/train-lle.js",
    "version": "1.1.1",
   "description": "Local Learning Engine - JavaScript CommonJS package",
    "main": "dist/cjs/index.js",

@@ -1,5 +1,5 @@
 // Cross-language test: Load Python-trained model in JS
-const { loadModel } = require('train-lle.js');
+const { loadModel } = require('@students-dev/train-lle.js');
 
 async function test() {
   const model = await loadModel('model_py.lle');

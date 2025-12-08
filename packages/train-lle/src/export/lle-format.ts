@@ -93,9 +93,9 @@ export async function loadModel(path: string): Promise<Model> {
     for (const param of layerParams) {
       const idx = weightsIndex[paramIdx];
       const arr = new Float32Array(idx.size / 4);
-      for (let i = 0; i < arr.length; i++) {
-        arr[i] = weightsBuffer.readFloat32LE(idx.offset + i * 4);
-      }
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = weightsBuffer.readFloatLE(idx.offset + i * 4);
+  }
       // Set the param
       if (paramIdx < weightsIndex.length) {
         // Assuming order matches

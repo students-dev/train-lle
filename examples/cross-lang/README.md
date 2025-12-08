@@ -7,7 +7,7 @@ Train a model in one runtime and load in another.
 ### Train in JS
 
 ```js
-const { Model, MLP, Trainer, Dataset } = require("train-lle.js");
+const { Model, MLP, Trainer, Dataset } = require("@students-dev/train-lle.js");
 
 const model = new Model(MLP.build({ input: 4, layers: [8, 8], output: 1 }));
 const trainer = new Trainer({ optimizer: "adam", lr: 0.01, epochs: 50, loss: "mse" });

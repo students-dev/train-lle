@@ -5,9 +5,9 @@ TypeScript ESM package for the Local Learning Engine.
 ## Installation
 
 ```bash
-npm install train-lle
+npm install @students-dev/train-lle
 # or
-pnpm add train-lle
+pnpm add @students-dev/train-lle
 ```
 
 ## Usage

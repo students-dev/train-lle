@@ -18,14 +18,14 @@
 
 ### TypeScript (ESM)
 ```bash
-npm install train-lle
+npm install @students-dev/train-lle
 # or
-pnpm add train-lle
+pnpm add @students-dev/train-lle
 ```
 
 ### JavaScript (CommonJS)
 ```bash
-npm install train-lle.js
+npm install @students-dev/train-lle.js
 ```
 
 ### Python

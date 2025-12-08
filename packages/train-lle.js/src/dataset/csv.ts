@@ -2,10 +2,10 @@ import { readFileSync } from "fs";
 import { Tensor } from "../core/tensor";
 
 export class Dataset {
-  inputs: Tensor;
-  targets: Tensor;
+  inputs: Tensor[];
+  targets: Tensor[];
 
-  constructor(inputs: Tensor, targets: Tensor) {
+  constructor(inputs: Tensor[], targets: Tensor[]) {
     this.inputs = inputs;
     this.targets = targets;
   }
@@ -19,16 +19,15 @@ export class Dataset {
       if (cols.some(isNaN)) continue;
       rows.push(cols);
     }
-    const numRows = rows.length;
     const numCols = rows[0].length;
-    const inputsData = new Float32Array(numRows * (numCols - 1));
-    const targetsData = new Float32Array(numRows);
-    for (let i = 0; i < numRows; i++) {
-      for (let j = 0; j < numCols - 1; j++) {
-        inputsData[i * (numCols - 1) + j] = rows[i][j];
-      }
-      targetsData[i] = rows[i][numCols - 1];
+    const inputs: Tensor[] = [];
+    const targets: Tensor[] = [];
+    for (const row of rows) {
+      const inputData = row.slice(0, numCols - 1);
+      const targetData = [row[numCols - 1]];
+      inputs.push(new Tensor(inputData, [numCols - 1]));
+      targets.push(new Tensor(targetData, [1]));
     }
-    return new Dataset(new Tensor(inputsData, [numRows, numCols - 1]), new Tensor(targetsData, [numRows, 1]));
+    return new Dataset(inputs, targets);
   }
 }

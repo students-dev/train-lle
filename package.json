@@ -1,6 +1,6 @@
 {
   "name": "train-lle",
-   "version": "1.1.1",
+   "version": "1.1.2",
   "description": "Local Learning Engine - A full production-ready LOCAL LEARNING ENGINE ecosystem",
   "private": true,
   "workspaces": [

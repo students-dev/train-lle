@@ -16,7 +16,7 @@ export class SGD implements Optimizer {
 
   step(params: Tensor[], grads: Tensor[]): void {
     for (let i = 0; i < params.length; i++) {
-      params[i] = params[i].add(grads[i].mul(-this.lr));
+      params[i].data = params[i].add(grads[i].mul(-this.lr)).data;
     }
   }
 }
@@ -61,7 +61,7 @@ export class Adam implements Optimizer {
       // params -= lr * m_hat / (sqrt(v_hat) + epsilon)
       const denom = vHat.sqrt().add(this.epsilon);
       const update = mHat.mul(this.lr).mul(denom.mul(-1));
-      params[i] = params[i].add(update);
+      params[i].data = params[i].add(update).data;
     }
   }
 }
@@ -92,7 +92,7 @@ export class RMSProp implements Optimizer {
       // params -= lr * grad / (sqrt(v) + epsilon)
       const denom = this.v[i].sqrt().add(this.epsilon);
       const update = grads[i].mul(this.lr).mul(denom.mul(-1));
-      params[i] = params[i].add(update);
+      params[i].data = params[i].add(update).data;
     }
   }
 }

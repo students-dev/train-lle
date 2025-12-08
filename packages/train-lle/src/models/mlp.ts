@@ -19,26 +19,36 @@ export class Dense implements Layer {
 
   forward(input: Tensor): Tensor {
     this.input = input;
-    // output = input @ weight + bias
-    const out = input.matmul(this.weight).add(this.bias);
-    this.output = out;
-    return out;
+    if (input.shape.length === 1) {
+      // Treat as batch 1
+      const batchedInput = new Tensor(input.data, [1, input.shape[0]]);
+      const out = batchedInput.matmul(this.weight);
+      const biasBatched = new Tensor(this.bias.data, [1, this.bias.shape[0]]);
+      const outWithBias = out.add(biasBatched);
+      this.output = new Tensor(outWithBias.data, [outWithBias.shape[1]]);
+      return this.output;
+    } else {
+      const out = input.matmul(this.weight).add(this.bias);
+      this.output = out;
+      return out;
+    }
   }
 
   backward(grad: Tensor): Tensor {
-    // grad_w = input.T @ grad
-    this.gradW = this.input!.transpose().matmul(grad);
-    // grad_b = sum over batch
-    this.gradB = new Tensor(new Float32Array(this.bias.data.length), this.bias.shape);
-    const batch = grad.shape[0];
-    const outSize = this.bias.data.length;
-    for (let b = 0; b < batch; b++) {
-      for (let o = 0; o < outSize; o++) {
-        this.gradB.data[o] += grad.data[b * outSize + o];
-      }
+    if (this.input!.shape.length === 1) {
+      // 1D
+      const batchedInput = new Tensor(this.input!.data, [1, this.input!.shape[0]]);
+      const batchedGrad = new Tensor(grad.data, [1, grad.shape[0]]);
+      this.gradW = batchedInput.transpose().matmul(batchedGrad);
+      this.gradB = batchedGrad.sum(0);
+      const dInputBatched = batchedGrad.matmul(this.weight.transpose());
+      return new Tensor(dInputBatched.data, [dInputBatched.shape[1]]);
+    } else {
+      // batched
+      this.gradW = this.input!.transpose().matmul(grad);
+      this.gradB = grad.sum(0);
+      return grad.matmul(this.weight.transpose());
     }
-    // grad_input = grad @ weight.T
-    return grad.matmul(this.weight.transpose());
   }
 
   params(): Tensor[] {
@@ -215,7 +225,7 @@ export interface MLPConfig {
   input: number;
   layers: number[];
   output: number;
-  activations?: ("relu" | "sigmoid" | "linear")[];
+  activations?: ("relu" | "linear")[];
 }
 
 export class MLP {
@@ -227,8 +237,6 @@ export class MLP {
       layers.push(new Dense(prev, config.layers[i]));
       if (acts[i] === "relu") {
         layers.push(new ReLU());
-      } else if (acts[i] === "sigmoid") {
-        layers.push(new Sigmoid());
       } else {
         layers.push(new Linear());
       }

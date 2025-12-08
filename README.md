@@ -1,4 +1,4 @@
-# Train-LLE Ecosystem v1.1.1
+# Train-LLE Ecosystem v1.1.2
 
 **Local Learning Engine** - A document-first LOCAL LEARNING ENGINE ecosystem with TypeScript, JavaScript, and Python packages. Train neural networks from PDFs, DOCX, images, code, and more, all locally without cloud dependencies.
 

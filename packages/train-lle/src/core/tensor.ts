@@ -168,6 +168,31 @@ export class Tensor {
   }
 
   /**
+   * Element-wise map.
+   */
+  map(fn: (x: number) => number): Tensor {
+    const result = new Float32Array(this.data.length);
+    for (let i = 0; i < this.data.length; i++) {
+      result[i] = fn(this.data[i]);
+    }
+    return new Tensor(result, this.shape);
+  }
+
+  /**
+   * ReLU activation.
+   */
+  relu(): Tensor {
+    return this.map(x => Math.max(0, x));
+  }
+
+  /**
+   * Sigmoid activation.
+   */
+  sigmoid(): Tensor {
+    return this.map(x => 1 / (1 + Math.exp(-x)));
+  }
+
+  /**
    * Clone the tensor.
    */
   clone(): Tensor {

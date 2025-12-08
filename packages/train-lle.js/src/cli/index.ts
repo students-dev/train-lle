@@ -6,13 +6,19 @@ import { MSE, CrossEntropy } from "../core/loss";
 import { Dataset } from "../dataset/csv";
 import { saveModel, loadModel } from "../export/lle-format";
 import { MLP } from "../models/mlp";
+import { discoverFiles } from "../ingest/index.js";
+import { extractText } from "../extract/index.js";
+import { normalizeText } from "../normalize/index.js";
+import { tokenizeAndChunk } from "../tokenize/index.js";
+import { assembleDataset } from "../dataset/manifest.js";
+import { EmbeddingModel, VectorIndex } from "../embed/index.js";
 
 const program = new Command();
 
 program
   .name('train-lle')
   .description('Local Learning Engine CLI')
-  .version('1.0.0');
+  .version('1.1.2');
 
 program.command('init')
   .description('Initialize a new project')
@@ -91,6 +97,67 @@ program.command('stats')
       total += p.data.length;
     }
     console.log(`Total parameters: ${total}`);
+  });
+
+program.command('ingest')
+  .description('Ingest files from path')
+  .argument('<path>', 'path to ingest')
+  .action(async (path) => {
+    const artifacts = await discoverFiles(path);
+    console.log(`Ingested ${artifacts.length} files`);
+    require('fs').writeFileSync('artifacts.json', JSON.stringify(artifacts, null, 2));
+  });
+
+program.command('extract')
+  .description('Extract text from artifacts')
+  .argument('<artifact>', 'artifact file')
+  .action(async (artifactPath) => {
+    const artifacts = JSON.parse(require('fs').readFileSync(artifactPath, 'utf-8'));
+    const extracted = [];
+    for (const art of artifacts) {
+      const ext = await extractText(art);
+      extracted.push(ext);
+    }
+    console.log(`Extracted ${extracted.length} artifacts`);
+    require('fs').writeFileSync('extracted.json', JSON.stringify(extracted, null, 2));
+  });
+
+program.command('assemble-dataset')
+  .description('Assemble dataset from extracted artifacts')
+  .argument('<manifest>', 'manifest file')
+  .action(async (manifestPath) => {
+    const extracted = JSON.parse(require('fs').readFileSync('extracted.json', 'utf-8'));
+    const normalized = extracted.map(normalizeText);
+    const allChunks = [];
+    for (const norm of normalized) {
+      const chunks = tokenizeAndChunk(norm.text);
+      allChunks.push(...chunks);
+    }
+    assembleDataset(normalized, allChunks, '.');
+    console.log('Dataset assembled');
+  });
+
+program.command('index')
+  .description('Index dataset')
+  .argument('<dataset>', 'dataset path')
+  .action(async (datasetPath) => {
+    const manifest = JSON.parse(require('fs').readFileSync(`${datasetPath}/DATASET_MANIFEST.json`, 'utf-8'));
+    const embedModel = new EmbeddingModel();
+    const index = new VectorIndex();
+    for (const chunk of manifest.chunks) {
+      const vector = embedModel.embed(chunk.text);
+      index.add(vector);
+    }
+    // Save index somehow, for now skip
+    console.log('Indexing complete');
+  });
+
+program.command('train-from-corpus')
+  .description('Train from corpus')
+  .argument('<dataset>', 'dataset path')
+  .action(async (datasetPath) => {
+    // Similar to train, but from corpus
+    console.log('Training from corpus not implemented yet');
   });
 
 export function runCLI() {

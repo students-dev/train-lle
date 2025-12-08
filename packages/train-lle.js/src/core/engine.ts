@@ -57,19 +57,27 @@ export class Trainer {
     this.epochs = config.epochs;
   }
 
-  fit(model: Model, inputs: Tensor, targets: Tensor): void {
+  fit(model: Model, inputs: Tensor[], targets: Tensor[]): void {
     for (let epoch = 0; epoch < this.epochs; epoch++) {
-      const pred = model.forward(inputs);
-      const loss = this.lossFn.forward(pred, targets);
-      const grad = this.lossFn.backward(pred, targets);
-      model.backward(grad);
-      this.optimizer.step(model.params(), model.grads());
-      console.log(`Epoch ${epoch + 1}/${this.epochs}, Loss: ${loss}`);
+      let totalLoss = 0;
+      for (let i = 0; i < inputs.length; i++) {
+        const pred = model.forward(inputs[i]);
+        const loss = this.lossFn.forward(pred, targets[i]);
+        totalLoss += loss;
+        const grad = this.lossFn.backward(pred, targets[i]);
+        model.backward(grad);
+        this.optimizer.step(model.params(), model.grads());
+      }
+      console.log(`Epoch ${epoch + 1}/${this.epochs}, Loss: ${totalLoss / inputs.length}`);
     }
   }
 
-  evaluate(model: Model, inputs: Tensor, targets: Tensor): number {
-    const pred = model.forward(inputs);
-    return this.lossFn.forward(pred, targets);
+  evaluate(model: Model, inputs: Tensor[], targets: Tensor[]): number {
+    let totalLoss = 0;
+    for (let i = 0; i < inputs.length; i++) {
+      const pred = model.forward(inputs[i]);
+      totalLoss += this.lossFn.forward(pred, targets[i]);
+    }
+    return totalLoss / inputs.length;
   }
 }

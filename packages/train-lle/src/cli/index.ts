@@ -18,7 +18,7 @@ const program = new Command();
 program
   .name('train-lle')
   .description('Local Learning Engine CLI')
-  .version('1.1.1');
+  .version('1.1.2');
 
 program.command('init')
   .description('Initialize a new project')

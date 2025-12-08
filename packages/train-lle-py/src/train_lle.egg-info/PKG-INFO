@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: train-lle
+Version: 1.0.0
+Summary: Local Learning Engine - Python package
+Author: Ramkrishna
+License: Apache-2.0
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+
+# train-lle
+
+Python package for the Local Learning Engine.
+
+## Installation
+
+```bash
+pip install train-lle
+```
+
+## Usage
+
+```python
+from train_lle import Model, MLP, Trainer, Dataset
+
+model = Model(MLP.build(input=4, layers=[8, 8], output=1))
+trainer = Trainer(optimizer="adam", lr=0.01, epochs=50, loss="mse")
+
+dataset = Dataset.from_csv("data.csv")
+trainer.fit(model, dataset.inputs, dataset.targets)
+
+model.save("model.lle")
+```

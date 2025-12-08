@@ -1,31 +1,33 @@
-# Train-LLE Ecosystem v1.0.0
+# Train-LLE Ecosystem v1.1.1
 
-**Local Learning Engine** - A full production-ready LOCAL LEARNING ENGINE ecosystem with TypeScript, JavaScript, and Python packages. Train neural networks locally without cloud dependencies.
+**Local Learning Engine** - A document-first LOCAL LEARNING ENGINE ecosystem with TypeScript, JavaScript, and Python packages. Train neural networks from PDFs, DOCX, images, code, and more, all locally without cloud dependencies.
 
 ## Features
 
+- **Document-first**: Ingest and train from PDFs, DOCX, HTML, TXT, images, code, emails, ZIPs
 - **Local-first**: No internet required for training or inference
 - **Cross-language**: TypeScript, JavaScript, Python with identical behavior
-- **Simple API**: Easy to use for tabular, image, and text data
+- **Simple API**: Easy to use for tabular, image, text, and document data
 - **Models**: MLP, CNN, RNN implementations
 - **Optimizers**: SGD, Adam, RMSProp
 - **Loss functions**: MSE, MAE, CrossEntropy
 - **Activations**: ReLU, Sigmoid, Tanh, Softmax
-- **CLI**: Command-line interface for training workflows
+- **CLI**: Command-line interface for ingestion, training, and export workflows
 - **Cross-language format**: Save/load models in `.lle` v1.1 format
+- **Dataset manifest**: Structured dataset handling with splits and provenance
 
 ## Installation
 
 ### TypeScript (ESM)
 ```bash
-npm install @students-dev/train-lle
+npm install train-lle
 # or
-pnpm add @students-dev/train-lle
+pnpm add train-lle
 ```
 
 ### JavaScript (CommonJS)
 ```bash
-npm install @students-dev/train-lle.js
+npm install train-lle.js
 ```
 
 ### Python
@@ -55,8 +57,20 @@ await model.save("model.lle");
 ### CLI Usage
 
 ```bash
-# Initialize a project
-npx train-lle init
+# Ingest documents
+npx train-lle ingest /path/to/documents
+
+# Extract text
+npx train-lle extract artifacts.json
+
+# Assemble dataset
+npx train-lle assemble-dataset manifest.json
+
+# Index for retrieval
+npx train-lle index dataset/
+
+# Train from corpus
+npx train-lle train-from-corpus dataset/
 
 # Train a model
 npx train-lle train config.json
@@ -88,7 +102,11 @@ npx train-lle stats model.lle
 
 ### CLI Commands
 
-- `init`: Create `train-config.json`
+- `ingest`: Ingest files from path
+- `extract`: Extract text from artifacts
+- `assemble-dataset`: Assemble dataset from extracted artifacts
+- `index`: Index dataset for retrieval
+- `train-from-corpus`: Train from document corpus
 - `train`: Run training with config or dataset
 - `test`: Evaluate model on dataset
 - `export`: Save current model

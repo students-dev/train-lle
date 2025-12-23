@@ -1,4 +1,4 @@
-import { Tensor } from "./tensor";
+import { Tensor } from "../../core/tensor";
 
 /**
  * Naive matrix multiplication for 2D tensors.

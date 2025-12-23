@@ -1,10 +1,10 @@
-import { Model } from "../../src/core/engine";
-import { Trainer } from "../../src/core/engine";
-import { MLP } from "../../src/models/mlp";
-import { SGD } from "../../src/core/optimizer";
-import { MSE } from "../../src/core/loss";
-import { Dataset } from "../../src/dataset/csv";
-import { Tensor } from "../../src/core/tensor";
+import { Model } from "../../packages/train-lle/src/core/engine";
+import { Trainer } from "../../packages/train-lle/src/core/engine";
+import { MLP } from "../../packages/train-lle/src/models/mlp";
+import { SGD } from "../../packages/train-lle/src/core/optimizer";
+import { MSE } from "../../packages/train-lle/src/core/loss";
+import { Dataset } from "../../packages/train-lle/src/dataset/csv";
+import { Tensor } from "../../packages/train-lle/src/core/tensor";
 
 // Generate synthetic data
 const numSamples = 100;

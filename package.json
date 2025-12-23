@@ -1,18 +1,17 @@
 {
   "name": "train-lle",
-   "version": "1.1.2",
+   "version": "1.2.0",
   "description": "Local Learning Engine - A full production-ready LOCAL LEARNING ENGINE ecosystem",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
-   "scripts": {
-     "build": "pnpm -r build",
-     "test": "pnpm -r test",
-     "lint": "pnpm -r lint",
-     "clean": "pnpm -r clean",
-     "cross-test": "node scripts/cross_lang_test.js && python scripts/cross_lang_test.py"
-   },
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "clean": "pnpm -r clean"
+  },
   "keywords": ["machine-learning", "neural-networks", "typescript", "javascript", "python", "local-ml"],
   "author": "Ramkrishna",
   "license": "Apache-2.0",

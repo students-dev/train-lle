@@ -103,6 +103,12 @@ export class Flatten implements Layer {
 
   forward(input: Tensor): Tensor {
     this.inputShape = input.shape;
+    if (input.shape.length > 1) {
+       // Preserves batch dim 0
+       const batch = input.shape[0];
+       const featureSize = input.data.length / batch;
+       return new Tensor(input.data, [batch, featureSize]);
+    }
     return new Tensor(input.data, [input.data.length]);
   }
 

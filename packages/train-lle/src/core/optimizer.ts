@@ -1,6 +1,7 @@
 import { Tensor } from "./tensor";
 
 export interface Optimizer {
+  lr: number;
   step(params: Tensor[], grads: Tensor[]): void;
 }
 

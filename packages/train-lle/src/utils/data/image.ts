@@ -1,4 +1,4 @@
-import { Tensor } from "../core/tensor";
+import { Tensor } from "../../core/tensor";
 
 export class ImageLoader {
   static load(path: string): Tensor {

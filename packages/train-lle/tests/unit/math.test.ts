@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { matmul, add, transpose } from "../../src/core/math";
+import { add, matmul, transpose } from "../../src/utils/math/math";
 import { Tensor } from "../../src/core/tensor";
 
 describe('Math', () => {

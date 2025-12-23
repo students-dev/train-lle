@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0/).
 
+## [1.2.0] - 2025-12-23
+
+### Added
+- **New Advanced Models**: Added implementations for **ResNet** (Vision) and **Transformer** (NLP).
+- **New Layers**: `Dropout`, `BatchNormalization`, `GlobalAveragePooling1D`, `Embedding`, `SelfAttention`.
+- **Enhanced Data Loading**: `DataLoader` class with batching, shuffling, and drop-last support.
+- **New Optimizers**: `AdamW` with decoupled weight decay.
+- **Learning Rate Schedulers**: `StepLR`, `CosineAnnealing`.
+- **Training Checkpoints**: Automatically save best models based on validation loss.
+- **Metrics**: Built-in support for Accuracy, MSE, and MAE.
+- **Project Structure**: Added `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` and GitHub Issue Templates.
+
+### Changed
+- **Unified Package**: Consolidated TS/JS packages into a single `@students-dev/train-lle` package supporting both ESM and CommonJS.
+- **Repository Organization**: Reorganized source code into `utils/math`, `utils/data`, etc.
+- **Removed**: Archived Python support to focus on Node.js ecosystem (moved to `archive/`).
+
 ## [1.0.0] - 2025-12-08
 
 ### Added

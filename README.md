@@ -1,38 +1,26 @@
-# Train-LLE Ecosystem v1.1.2
+# Train-LLE Ecosystem v1.2.0
 
-**Local Learning Engine** - A document-first LOCAL LEARNING ENGINE ecosystem with TypeScript, JavaScript, and Python packages. Train neural networks from PDFs, DOCX, images, code, and more, all locally without cloud dependencies.
+**Local Learning Engine** - A document-first LOCAL LEARNING ENGINE ecosystem for Node.js. Train neural networks from PDFs, DOCX, images, code, and more, all locally without cloud dependencies.
 
 ## Features
 
 - **Document-first**: Ingest and train from PDFs, DOCX, HTML, TXT, images, code, emails, ZIPs
 - **Local-first**: No internet required for training or inference
-- **Cross-language**: TypeScript, JavaScript, Python with identical behavior
-- **Simple API**: Easy to use for tabular, image, text, and document data
-- **Models**: MLP, CNN, RNN implementations
-- **Optimizers**: SGD, Adam, RMSProp
+- **Advanced Models**: **ResNet**, **Transformer**, MLP, CNN, RNN implementations
+- **Optimizers**: SGD, Adam, RMSProp, **AdamW**
+- **Schedulers**: **StepLR**, **CosineAnnealing**
+- **Layers**: **Dropout**, **BatchNormalization**, Embedding, SelfAttention
+- **Data Pipeline**: **DataLoader** with batching & shuffling, Dataset manifest
 - **Loss functions**: MSE, MAE, CrossEntropy
-- **Activations**: ReLU, Sigmoid, Tanh, Softmax
 - **CLI**: Command-line interface for ingestion, training, and export workflows
 - **Cross-language format**: Save/load models in `.lle` v1.1 format
-- **Dataset manifest**: Structured dataset handling with splits and provenance
 
 ## Installation
 
-### TypeScript (ESM)
 ```bash
 npm install @students-dev/train-lle
 # or
 pnpm add @students-dev/train-lle
-```
-
-### JavaScript (CommonJS)
-```bash
-npm install @students-dev/train-lle.js
-```
-
-### Python
-```bash
-pip install train-lle
 ```
 
 ## Quickstart
@@ -40,18 +28,48 @@ pip install train-lle
 ### Programmatic Usage
 
 ```ts
-import { Model, MLPConfig, Trainer, Dataset } from "@students-dev/train-lle";
+import { Model, MLP, Trainer, Dataset, DataLoader, AdamW, Metrics } from "@students-dev/train-lle";
 
-const model = new Model(new MLPConfig({ input: 4, layers: [8, 8], output: 1 }));
-const trainer = new Trainer({ optimizer: "adam", lr: 0.01, epochs: 50 });
+// Define a simple MLP
+const model = new Model(MLP.build({ input: 4, layers: [16, 16], output: 1 }));
 
+// Configure Trainer with AdamW and metrics
+const trainer = new Trainer({ 
+  optimizer: new AdamW(0.01), 
+  loss: new MSE(), 
+  epochs: 50 
+});
+
+// Load Data
 const dataset = await Dataset.fromCSV("data.csv");
-await trainer.fit(model, dataset);
+const loader = new DataLoader(dataset, { batchSize: 32, shuffle: true });
 
-const prediction = model.predict([1, 2, 3, 4]);
+// Train
+await trainer.fit(model, dataset.inputs, dataset.targets);
+
+// Predict
+const prediction = model.predict(new Tensor([1, 2, 3, 4], [1, 4]));
 console.log(prediction);
 
+// Save
 await model.save("model.lle");
+```
+
+### Advanced Usage (Transformer)
+
+```ts
+import { TransformerClassifier, Trainer, AdamW } from "@students-dev/train-lle";
+
+// Build a text classifier
+const layers = TransformerClassifier.build({
+  vocabSize: 10000,
+  embedSize: 128,
+  numBlocks: 2,
+  classes: 5
+});
+const model = new Model(layers);
+
+// Train...
 ```
 
 ### CLI Usage
@@ -66,51 +84,29 @@ npx train-lle extract artifacts.json
 # Assemble dataset
 npx train-lle assemble-dataset manifest.json
 
-# Index for retrieval
-npx train-lle index dataset/
-
-# Train from corpus
-npx train-lle train-from-corpus dataset/
-
 # Train a model
 npx train-lle train config.json
 
-# Test on dataset
-npx train-lle test model.lle dataset.csv
-
 # Export model
 npx train-lle export output.lle
-
-# Show model stats
-npx train-lle stats model.lle
 ```
 
 ## API Reference
 
-### Model Classes
+### Models & Layers
 
-- `MLPConfig`: Configure multi-layer perceptron
-- `CNNConfig`: Configure convolutional neural network
-- `RNNConfig`: Configure recurrent neural network
+- `MLP`, `CNN`, `RNN`
+- `ResNet`, `TransformerClassifier`
+- `Dense`, `Conv2D`, `Dropout`, `BatchNormalization`, `Embedding`, `SelfAttention`
 
 ### Core Classes
 
 - `Model`: Neural network model
-- `Trainer`: Training orchestrator
-- `Dataset`: Data loading and preprocessing
+- `Trainer`: Training orchestrator with checkpoints
+- `Dataset`, `DataLoader`: Data loading and preprocessing
 - `Tensor`: Multi-dimensional array operations
-
-### CLI Commands
-
-- `ingest`: Ingest files from path
-- `extract`: Extract text from artifacts
-- `assemble-dataset`: Assemble dataset from extracted artifacts
-- `index`: Index dataset for retrieval
-- `train-from-corpus`: Train from document corpus
-- `train`: Run training with config or dataset
-- `test`: Evaluate model on dataset
-- `export`: Save current model
-- `stats`: Display model summary
+- `Metrics`: Accuracy, MSE, MAE
+- `AdamW`, `StepLR`, `CosineAnnealing`
 
 ## Examples
 
@@ -122,11 +118,7 @@ See `examples/` directory for runnable scripts:
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make changes with tests
-4. Run `npm test` and `npm run lint`
-5. Submit a pull request
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## License
 

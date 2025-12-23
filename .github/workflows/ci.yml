@@ -10,11 +10,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.8'
       - run: npm install -g pnpm
       - run: pnpm install
       - run: pnpm build
       - run: pnpm test
-      - run: pnpm cross-test

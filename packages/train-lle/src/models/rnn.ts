@@ -19,6 +19,7 @@ export class RNN implements Layer {
   gradBh: Tensor | null = null;
   inputs: Tensor[] = [];
   hs: Tensor[] = [];
+  training: boolean = true;
 
   constructor(inputSize: number, hiddenSize: number) {
     this.config = { inputSize, hiddenSize };

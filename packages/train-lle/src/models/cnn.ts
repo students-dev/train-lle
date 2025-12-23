@@ -11,6 +11,7 @@ export class Conv2D implements Layer {
   input: Tensor | null = null;
   output: Tensor | null = null;
   stride: number = 1;
+  training: boolean = true;
 
   constructor(inChannels: number, outChannels: number, kernelSize: number) {
     this.config = { inChannels, outChannels, kernelSize };
@@ -100,6 +101,7 @@ export class Flatten implements Layer {
   type = "flatten";
   config = {};
   inputShape: number[] | null = null;
+  training: boolean = true;
 
   forward(input: Tensor): Tensor {
     this.inputShape = input.shape;
